@@ -71,7 +71,21 @@ productframe pr = new productframe();
         Logger.getLogger(productclass.class.getName()).log(Level.SEVERE, null, ex);
     } return x;
     }
- 
+ public void deleteproduct(int id){
+
+    try{
+        Class.forName(cn.driver);
+        Connection con = DriverManager.getConnection(cn.local,cn.ps,cn.sr);
+        PreparedStatement prep = con.prepareStatement("delete from products where id = ?");
+        prep.setInt(1, id);
+        prep.executeUpdate();
+        
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(productclass.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (SQLException ex) {
+        Logger.getLogger(productclass.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
 
 
 }
