@@ -179,7 +179,7 @@ student_frame studf = new student_frame();
 int d=regf.login(us, passw);
 if(d==1){
     JOptionPane.showMessageDialog(rootPane, "Log in successfully", "MESSAGE", JOptionPane.INFORMATION_MESSAGE);
-    user.setText("");pass.setText("");this.setVisible(false);studf.setLocationRelativeTo(null);studf.setVisible(true);
+    user.setText("");pass.setText("");this.setVisible(false);new productframe().setVisible(true);
     
      }else{
     JOptionPane.showMessageDialog(rootPane, "Invalid username or password", "WARNING", JOptionPane.WARNING_MESSAGE);
