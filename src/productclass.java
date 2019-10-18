@@ -86,6 +86,22 @@ productframe pr = new productframe();
         Logger.getLogger(productclass.class.getName()).log(Level.SEVERE, null, ex);
     }
     }
-
+public int editProduct(int id, String pname, Float pprice){
+int h=0;
+    try{
+        Class.forName(new connections().driver);
+        Connection con = DriverManager.getConnection(new connections().local,new connections().ps,new connections().sr);
+        PreparedStatement prep = con.prepareStatement("update products set pname = ?, pprice = ? where id = ?");
+        prep.setString(1, pname);
+        prep.setFloat(2, pprice);
+        prep.setInt(3, id);
+        h=prep.executeUpdate();
+        
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(productclass.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (SQLException ex) {
+        Logger.getLogger(productclass.class.getName()).log(Level.SEVERE, null, ex);
+    }return h;
+    }
 
 }

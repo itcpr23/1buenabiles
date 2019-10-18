@@ -1,6 +1,7 @@
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,7 +31,7 @@ public class productframe extends javax.swing.JFrame {
         showtable();
         locate();
     }
-
+int id=0;
 public void locate(){
     addproduct.setLocationRelativeTo(null);
 }
@@ -59,6 +60,7 @@ public void showtable(){
         Logger.getLogger(productclass.class.getName()).log(Level.SEVERE, null, ex);
     }
 }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,18 +78,20 @@ public void showtable(){
         prprc = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        addbtn = new javax.swing.JButton();
+        canceladd = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        editbtn = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tab = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         addproduct.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addproduct.setMinimumSize(new java.awt.Dimension(400, 298));
+        addproduct.setMinimumSize(new java.awt.Dimension(466, 298));
         addproduct.setUndecorated(true);
 
         jPanel2.setBackground(new java.awt.Color(102, 0, 0));
@@ -114,19 +118,19 @@ public void showtable(){
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Price:");
 
-        jButton2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jButton2.setText("Add");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        addbtn.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        addbtn.setText("Add");
+        addbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                addbtnActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jButton3.setText("Cancel");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        canceladd.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        canceladd.setText("Cancel");
+        canceladd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                canceladdActionPerformed(evt);
             }
         });
 
@@ -135,13 +139,21 @@ public void showtable(){
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("= PRODUCT =");
 
+        editbtn.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        editbtn.setText("Edit");
+        editbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editbtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,15 +161,17 @@ public void showtable(){
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton3)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(canceladd)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(addbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(prprc, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(prqty, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(prname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(48, 48, 48))
+                                .addComponent(editbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(prname)
+                            .addComponent(prqty)
+                            .addComponent(prprc))))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,8 +192,9 @@ public void showtable(){
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(addbtn)
+                    .addComponent(canceladd)
+                    .addComponent(editbtn))
                 .addGap(44, 44, 44))
         );
 
@@ -245,6 +260,14 @@ public void showtable(){
             }
         });
 
+        jButton6.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButton6.setText("Edit Product");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -253,7 +276,8 @@ public void showtable(){
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -273,7 +297,9 @@ public void showtable(){
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)))
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6)))
                 .addContainerGap())
         );
 
@@ -293,14 +319,16 @@ public void showtable(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-          addproduct.setVisible(true);addproduct.setAlwaysOnTop(true);this.setEnabled(false);        // TODO add your handling code here:
+ addproduct.setVisible(true);addproduct.setAlwaysOnTop(true);this.setEnabled(false);
+editbtn.setVisible(false); addbtn.setVisible(true);prqty.setEnabled(true);
+// TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         this.setVisible(false); mainpage mn = new mainpage();mn.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void addbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbtnActionPerformed
         String prodname = prname.getText();
         int prodqty = Integer.parseInt(prqty.getValue().toString());
         Float prodprice = Float.parseFloat(prprc.getValue().toString());
@@ -323,11 +351,11 @@ public void showtable(){
         }else{
             JOptionPane.showMessageDialog(addproduct, "Please make sure to fill all fields", "SYSTEM MESSAGE", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_addbtnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        clearfields(); addproduct.setVisible(false);this.setEnabled(true);this.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void canceladdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_canceladdActionPerformed
+          clearfields(); addproduct.setVisible(false);this.setEnabled(true);this.setVisible(true);
+    }//GEN-LAST:event_canceladdActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
@@ -346,6 +374,36 @@ if(tbl==-1){
     }
 }
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+int tbl = tab.getSelectedRow();
+if(tbl==-1){
+  JOptionPane.showMessageDialog(rootPane, "Please Select Product", "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);  
+}else{
+     addproduct.setVisible(true);addproduct.setAlwaysOnTop(true);this.setEnabled(false);
+    addbtn.setVisible(false);editbtn.setVisible(true);prqty.setEnabled(false);
+     
+      id = Integer.parseInt(tab.getValueAt(tbl, 0).toString());
+     String pnm = tab.getValueAt(tbl, 1).toString();
+     int pqty = Integer.parseInt(tab.getValueAt(tbl, 2).toString());
+     String pprice = tab.getValueAt(tbl, 3).toString();
+      prname.setText(pnm);prqty.setValue(pqty); prprc.setText(pprice);
+}       
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
+if(!prname.getText().equals("")&&prprc.getText().equals("")){
+int a = new productclass().editProduct(id, prname.getText(), Float.parseFloat(prprc.getValue().toString()));
+if(a==0){
+   JOptionPane.showMessageDialog(addproduct, "Please Select Product", "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);  
+}else{
+  clearfields();
+  showtable();  
+}}else{
+  JOptionPane.showMessageDialog(addproduct, "Please fill all fields", "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);  
+}
+    }//GEN-LAST:event_editbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -383,12 +441,14 @@ if(tbl==-1){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addbtn;
     private javax.swing.JFrame addproduct;
+    private javax.swing.JButton canceladd;
+    private javax.swing.JButton editbtn;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
