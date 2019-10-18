@@ -41,9 +41,7 @@ public void clearfields(){
      prprc.setText("");
 }
 public void showtable(){
-
      try{
-         
          Class.forName(new connections().driver);
          Connection cnn = DriverManager.getConnection(new connections().local, new connections().ps, new connections().sr);
          Statement st = cnn.createStatement();
@@ -53,13 +51,33 @@ public void showtable(){
         while(rs.next()){
           md.addRow(new Object[]{rs.getString("id"),rs.getString("pname"),rs.getString("pquantity"),rs.getString("pprice")});
         }
-         
+        
      }catch (ClassNotFoundException ex) { 
         Logger.getLogger(productclass.class.getName()).log(Level.SEVERE, null, ex);
     } catch (SQLException ex) {
         Logger.getLogger(productclass.class.getName()).log(Level.SEVERE, null, ex);
     }
 }
+public void searchProduct(String pname){
+    try{
+        Class.forName(new connections().driver);
+        Connection con = DriverManager.getConnection(new connections().local,new connections().ps,new connections().sr);
+        PreparedStatement prep = con.prepareStatement("Select * from products where id like ? or pname like ?");
+        prep.setString(1, "%"+pname+"%");
+        prep.setString(2, "%"+pname+"%");
+        ResultSet rs = prep.executeQuery();
+        DefaultTableModel md = (DefaultTableModel) tab.getModel();
+        md.setRowCount(0);
+        while(rs.next()){
+          md.addRow(new Object[]{rs.getString("id"),rs.getString("pname"),rs.getString("pquantity"),rs.getString("pprice")});
+        }
+        
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(productclass.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (SQLException ex) {
+        Logger.getLogger(productclass.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -89,6 +107,8 @@ public void showtable(){
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        searchtf = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         addproduct.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addproduct.setMinimumSize(new java.awt.Dimension(466, 298));
@@ -268,38 +288,59 @@ public void showtable(){
             }
         });
 
+        searchtf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchtfKeyReleased(evt);
+            }
+        });
+
+        jButton2.setText("Search");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(searchtf)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(searchtf)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6)))
+                        .addComponent(jButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -405,6 +446,14 @@ if(a==0){
 }
     }//GEN-LAST:event_editbtnActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+this.searchProduct(searchtf.getText());
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void searchtfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchtfKeyReleased
+this.searchProduct(searchtf.getText());        // TODO add your handling code here:
+    }//GEN-LAST:event_searchtfKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -446,6 +495,7 @@ if(a==0){
     private javax.swing.JButton canceladd;
     private javax.swing.JButton editbtn;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -459,6 +509,7 @@ if(a==0){
     private javax.swing.JTextField prname;
     private javax.swing.JFormattedTextField prprc;
     private javax.swing.JSpinner prqty;
+    private javax.swing.JTextField searchtf;
     private javax.swing.JTable tab;
     // End of variables declaration//GEN-END:variables
 }
