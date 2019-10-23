@@ -103,7 +103,23 @@ int h=0;
         Logger.getLogger(productclass.class.getName()).log(Level.SEVERE, null, ex);
     }return h;
     }
-
+public int addQuantity(int id, int quantity){
+int h=0;
+    try{
+        Class.forName(new connections().driver);
+        Connection con = DriverManager.getConnection(new connections().local,new connections().ps,new connections().sr);
+        PreparedStatement prep = con.prepareStatement("update products set pquantity = pquantity + ? where id = ? ");
+        prep.setInt(1, quantity);
+        prep.setInt(2, id);
+        
+        h=prep.executeUpdate();
+        
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(productclass.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (SQLException ex) {
+        Logger.getLogger(productclass.class.getName()).log(Level.SEVERE, null, ex);
+    }return h;
+    }
 
 
 }

@@ -31,14 +31,21 @@ public class productframe extends javax.swing.JFrame {
         showtable();
         locate();
     }
+
 int id=0;
 public void locate(){
     addproduct.setLocationRelativeTo(null);
 }
-public void clearfields(){
+final void clearfields(){
      prname.setText("");
      prqty.setValue(1);
      prprc.setText("");
+     prprc.setText("");
+}
+final void setEnableTrue(){
+    prname.setEnabled(true);
+    ext_quant.setEnabled(true);
+    prprc.setEnabled(true);
 }
 public void showtable(){
      try{
@@ -100,6 +107,8 @@ public void searchProduct(String pname){
         canceladd = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         editbtn = new javax.swing.JButton();
+        addQbtn = new javax.swing.JButton();
+        ext_quant = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tab = new javax.swing.JTable();
@@ -109,6 +118,7 @@ public void searchProduct(String pname){
         jButton6 = new javax.swing.JButton();
         searchtf = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         addproduct.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addproduct.setMinimumSize(new java.awt.Dimension(466, 298));
@@ -147,7 +157,7 @@ public void searchProduct(String pname){
         });
 
         canceladd.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        canceladd.setText("Cancel");
+        canceladd.setText("Back");
         canceladd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 canceladdActionPerformed(evt);
@@ -167,6 +177,20 @@ public void searchProduct(String pname){
             }
         });
 
+        addQbtn.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        addQbtn.setText("Add Q");
+        addQbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addQbtnActionPerformed(evt);
+            }
+        });
+
+        ext_quant.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ext_quant.setForeground(new java.awt.Color(255, 255, 0));
+        ext_quant.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ext_quant.setText("1");
+        ext_quant.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -183,29 +207,38 @@ public void searchProduct(String pname){
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(canceladd)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(addbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(editbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(editbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(addQbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(prname)
-                            .addComponent(prqty)
-                            .addComponent(prprc))))
-                .addContainerGap(93, Short.MAX_VALUE))
+                            .addComponent(prprc)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(ext_quant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(prqty, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(91, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(canceladd)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(canceladd)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(prname, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(prname, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(prqty, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ext_quant, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(prprc, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,8 +246,8 @@ public void searchProduct(String pname){
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addbtn)
-                    .addComponent(canceladd)
-                    .addComponent(editbtn))
+                    .addComponent(editbtn)
+                    .addComponent(addQbtn))
                 .addGap(44, 44, 44))
         );
 
@@ -230,7 +263,7 @@ public void searchProduct(String pname){
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(567, 388));
+        setMinimumSize(new java.awt.Dimension(560, 388));
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(102, 0, 0));
@@ -301,26 +334,35 @@ public void searchProduct(String pname){
             }
         });
 
+        jButton7.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButton7.setText("Add Quantity");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(searchtf)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -339,6 +381,8 @@ public void searchProduct(String pname){
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -360,13 +404,17 @@ public void searchProduct(String pname){
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
- addproduct.setVisible(true);addproduct.setAlwaysOnTop(true);this.setEnabled(false);
-editbtn.setVisible(false); addbtn.setVisible(true);prqty.setEnabled(true);
+setEnableTrue();
+addproduct.setVisible(true);addproduct.setAlwaysOnTop(true);this.setEnabled(false);ext_quant.setText("");
+editbtn.setVisible(false);addQbtn.setVisible(false); addbtn.setVisible(true);prqty.setEnabled(true);
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        this.setVisible(false); mainpage mn = new mainpage();mn.setVisible(true);
+int d = JOptionPane.showConfirmDialog(addproduct, "Do you want exit the program?","System Confirmation",JOptionPane.YES_NO_OPTION);
+if(d==0){
+    System.exit(d);
+}
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void addbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbtnActionPerformed
@@ -395,7 +443,7 @@ editbtn.setVisible(false); addbtn.setVisible(true);prqty.setEnabled(true);
     }//GEN-LAST:event_addbtnActionPerformed
 
     private void canceladdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_canceladdActionPerformed
-          clearfields(); addproduct.setVisible(false);this.setEnabled(true);this.setVisible(true);
+clearfields(); addproduct.setVisible(false);this.setEnabled(true);this.setVisible(true);
     }//GEN-LAST:event_canceladdActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -417,12 +465,13 @@ if(tbl==-1){
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+setEnableTrue();
 int tbl = tab.getSelectedRow();
 if(tbl==-1){
   JOptionPane.showMessageDialog(rootPane, "Please Select Product", "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);  
 }else{
-     addproduct.setVisible(true);addproduct.setAlwaysOnTop(true);this.setEnabled(false);
-    addbtn.setVisible(false);editbtn.setVisible(true);prqty.setEnabled(false);
+    addproduct.setVisible(true);addproduct.setAlwaysOnTop(true);this.setEnabled(false);ext_quant.setText("");
+    addbtn.setVisible(false);addQbtn.setVisible(false);editbtn.setVisible(true);prqty.setEnabled(false);
      
       id = Integer.parseInt(tab.getValueAt(tbl, 0).toString());
      String pnm = tab.getValueAt(tbl, 1).toString();
@@ -434,25 +483,60 @@ if(tbl==-1){
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
-if(!prname.getText().equals("")&&prprc.getText().equals("")){
+if(!prname.getText().equals("")){
 int a = new productclass().editProduct(id, prname.getText(), Float.parseFloat(prprc.getValue().toString()));
-if(a==0){
-   JOptionPane.showMessageDialog(addproduct, "Please Select Product", "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);  
-}else{
+if(a==1){
+   JOptionPane.showMessageDialog(addproduct, "Succesfully Edited", "System Message", JOptionPane.INFORMATION_MESSAGE);  
   clearfields();
-  showtable();  
+  showtable();
+   addproduct.setVisible(false);this.setEnabled(true);
 }}else{
   JOptionPane.showMessageDialog(addproduct, "Please fill all fields", "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);  
 }
     }//GEN-LAST:event_editbtnActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-this.searchProduct(searchtf.getText());
+ this.searchProduct(searchtf.getText());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void searchtfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchtfKeyReleased
 this.searchProduct(searchtf.getText());        // TODO add your handling code here:
     }//GEN-LAST:event_searchtfKeyReleased
+
+    private void addQbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addQbtnActionPerformed
+ 
+int d = JOptionPane.showConfirmDialog(addproduct, "Do you want to add\n     "+prqty.getValue()+"\n to "+prname.getText()+" ?","System Confirmation",JOptionPane.YES_NO_OPTION);
+if(d==JOptionPane.YES_OPTION){
+int a = new productclass().addQuantity(id, Integer.parseInt(prqty.getValue().toString()));
+if(a==1){
+    JOptionPane.showMessageDialog(addproduct, "Succesfully Added to Quantity", "System Message", JOptionPane.INFORMATION_MESSAGE);  
+   clearfields();
+   showtable();
+   addproduct.setVisible(false);this.setEnabled(true);
+}else{
+   JOptionPane.showMessageDialog(addproduct, "Something went wrong", "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);  
+}}
+    }//GEN-LAST:event_addQbtnActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+int r = tab.getSelectedRow();
+if(r!=-1){
+    addproduct.setVisible(true);addproduct.setAlwaysOnTop(true);this.setEnabled(false);
+    addbtn.setVisible(false);addQbtn.setVisible(true);editbtn.setVisible(false);
+    prname.setEnabled(false);prprc.setEnabled(false);prqty.setEnabled(true);
+    id = Integer.parseInt(tab.getValueAt(r, 0).toString());
+    Object pnm = tab.getValueAt(r, 1);
+    Object quant = tab.getValueAt(r, 2);
+    Object prc = tab.getValueAt(r, 3);
+    prqty.setValue(1);
+    prname.setText(pnm.toString());
+    ext_quant.setText(quant.toString());
+    prprc.setValue(Float.parseFloat(prc.toString()));
+    
+}else{
+   JOptionPane.showMessageDialog(addproduct, "Please Select Product", "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);
+}
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -490,15 +574,18 @@ this.searchProduct(searchtf.getText());        // TODO add your handling code he
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addQbtn;
     private javax.swing.JButton addbtn;
     private javax.swing.JFrame addproduct;
     private javax.swing.JButton canceladd;
     private javax.swing.JButton editbtn;
+    private javax.swing.JLabel ext_quant;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
