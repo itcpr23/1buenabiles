@@ -10,16 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Acer Aspire E 15
- */
 public class productframe extends javax.swing.JFrame {
 
     /**
@@ -30,9 +21,12 @@ public class productframe extends javax.swing.JFrame {
         initComponents();
         showtable();
         locate();
+        thr.start();
+                
     }
-
+    
 int id=0;
+
 public void locate(){
     addproduct.setLocationRelativeTo(null);
 }
@@ -86,6 +80,43 @@ public void searchProduct(String pname){
     }
     }
 
+public void updateQTY(String key){
+     try {
+         Class.forName(new connections().driver);
+         Connection con = DriverManager.getConnection(new connections().local,new connections().ps,new connections().sr);
+         PreparedStatement ps = con.prepareStatement("Select * from products where pname like ?");
+         ps.setString(1, "%"+key+"%");
+         ResultSet rs = ps.executeQuery();
+         DefaultTableModel jtab = (DefaultTableModel) tab.getModel();
+         int row = 0;
+         while(rs.next()){
+             String prodname = rs.getString("pname");
+             String qty = rs.getString("pquantity");
+             tab.setValueAt(qty, row, 2);
+             tab.setValueAt(prodname, row, 1);
+             row++;
+         }
+     }  catch (ClassNotFoundException ex) {
+            Logger.getLogger(productframe.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(productframe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    Thread thr = new Thread(new Runnable() {
+    @Override
+    public void run() {
+        while(true){
+        updateQTY(searchtf.getText());
+            try {
+                
+                Thread.sleep(3000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(productframe.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+});
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -599,4 +630,5 @@ if(r!=-1){
     private javax.swing.JTextField searchtf;
     private javax.swing.JTable tab;
     // End of variables declaration//GEN-END:variables
+
 }
