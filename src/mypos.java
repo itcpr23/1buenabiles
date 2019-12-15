@@ -161,8 +161,6 @@ else{
 }        
 bcodetf.setText("");
 priceSolve();
-        
-
     }//GEN-LAST:event_bcodetfActionPerformed
 
     /**
